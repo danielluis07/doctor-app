@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export const specialties = [
+const specialties = [
   "Cardiologista",
   "Pediatra",
   "Dermatologista",
