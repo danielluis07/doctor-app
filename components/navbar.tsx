@@ -4,16 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import placeholder from "@/public/placeholder-logo.jpg";
 // import { Notifications } from "./notifications";
-import { User } from "next-auth";
+import { ExtendedUser } from "@/next-auth";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Bell, Moon, Settings, Sun } from "lucide-react";
 
 type NavbarProps = {
-  user: User;
+  user: ExtendedUser;
 };
 
 export const Navbar = ({ user }: NavbarProps) => {
   const isDarkMode = false;
+  let role;
+
+  if (user.role === "ADMIN") {
+    role = "admin";
+  } else if (user.role === "DOCTOR") {
+    role = "doctor";
+  } else {
+    role = "patient";
+  }
 
   return (
     <div className="flex justify-between items-center w-full mb-7">
@@ -48,7 +57,7 @@ export const Navbar = ({ user }: NavbarProps) => {
             <span className="font-semibold">{user?.name}</span>
           </div>
         </div>
-        <Link href="/settings">
+        <Link href={`/dashboard/${role}/settings`}>
           <Settings className="cursor-pointer text-gray-500" size={24} />
         </Link>
       </div>
