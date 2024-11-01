@@ -5,21 +5,14 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  Calendar,
-  House,
-  MessageCircle,
-  UserPen,
-  Users,
-  CalendarSearch,
-  Stethoscope,
-} from "lucide-react";
+import { House, UserPen, CalendarSearch, Stethoscope } from "lucide-react";
 import { LogoutBtn } from "@/components/auth/logout-btn";
+import Image from "next/image";
+import logo from "@/public/app-logo.png";
 
 const items = [
   {
@@ -47,12 +40,12 @@ const items = [
 export function PatientSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader>
-        <h1 className="text-xl font-bold">MedFind</h1>
-      </SidebarHeader>
+      <div className="flex items-center gap-2 p-4">
+        <Image src={logo} width={40} height={40} alt="logo" />
+        <h1 className="text-lg font-bold">MedFind</h1>
+      </div>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
