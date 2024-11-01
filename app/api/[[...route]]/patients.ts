@@ -52,6 +52,8 @@ const app = new Hono()
       }
 
       const now = new Date();
+      const today = now.toISOString().split("T")[0];
+      const currentTime = now.toTimeString().split(" ")[0];
 
       const [data] = await db
         .select({
@@ -63,16 +65,23 @@ const app = new Hono()
         .where(
           and(
             eq(appointment.patientId, id),
-            gte(appointment.availableDate, now.toISOString().split("T")[0]),
             or(
-              eq(appointment.availableDate, now.toISOString().split("T")[0]),
-              gte(appointment.startTime, now.toTimeString().split(" ")[0])
+              // Condition to get today’s appointments with a start time later than now
+              and(
+                eq(appointment.availableDate, today),
+                gte(appointment.startTime, currentTime)
+              ),
+              // Or any future date appointments
+              gte(appointment.availableDate, today)
             )
           )
         )
         .leftJoin(doctor, eq(appointment.doctorId, doctor.id))
         .leftJoin(users, eq(doctor.userId, users.id))
-        .orderBy(asc(appointment.availableDate))
+        .orderBy(
+          asc(appointment.availableDate), // Order by soonest date
+          asc(appointment.startTime) // Then by soonest time on that date
+        )
         .limit(1);
 
       if (!data) {
