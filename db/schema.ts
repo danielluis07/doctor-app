@@ -275,6 +275,29 @@ export const notification = pgTable("notification", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
 });
 
+export const favorites = pgTable(
+  "favorites",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    patientId: text("patient_id")
+      .notNull()
+      .references(() => patient.id, { onDelete: "cascade" }),
+    doctorId: text("doctor_id")
+      .notNull()
+      .references(() => doctor.id, { onDelete: "cascade" }),
+  },
+  (table) => {
+    return {
+      uniqueFavorite: uniqueIndex("unique_patient_doctor_favorite").on(
+        table.patientId,
+        table.doctorId
+      ),
+    };
+  }
+);
+
 export const insertUserSchema = createInsertSchema(users);
 export const insertDoctorSchema = createInsertSchema(doctor);
 export const insertPatientSchema = createInsertSchema(patient);
