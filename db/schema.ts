@@ -305,3 +305,4 @@ export const insertDoctorAvailabilitySchema =
   createInsertSchema(doctorAvailability);
 export const insertAppointmentSchema = createInsertSchema(appointment);
 export const insertReviewSchema = createInsertSchema(review);
+export const insertFavoriteSchema = createInsertSchema(favorites);

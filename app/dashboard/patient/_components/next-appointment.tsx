@@ -14,7 +14,16 @@ export const NextAppointment = ({ id }: { id: string | undefined }) => {
   if (isLoading) {
     return (
       <div className="col-span-1 lg:col-span-2">
-        <Skeleton className="w-full h-28" />
+        <Skeleton className="w-full h-60" />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="col-span-1 lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow">
+        <h2 className="text-lg md:text-xl font-bold mb-4">Próxima consulta</h2>
+        <p className="text-gray-500">Nenhuma consulta agendada</p>
       </div>
     );
   }

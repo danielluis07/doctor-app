@@ -1,6 +1,7 @@
 import { getUserPatient } from "@/queries/patients/get-patient";
 import { auth } from "@/auth";
 import { NextAppointment } from "../_components/next-appointment";
+import { ClipboardPen, Heart, Search } from "lucide-react";
 
 const PatientDashboardPage = async () => {
   const session = await auth();
@@ -16,16 +17,19 @@ const PatientDashboardPage = async () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <NextAppointment id={data.patient?.id} />
         <div className="bg-white p-4 md:p-6 rounded-lg shadow">
-          <h2 className="text-lg md:text-xl font-bold mb-4">Quick Actions</h2>
+          <h2 className="text-lg md:text-xl font-bold mb-4">Ações rápidas</h2>
           <div className="flex flex-col space-y-3 md:space-y-4">
-            <button className="bg-green-500 text-white px-3 md:px-4 py-2 rounded">
-              Find a Doctor
+            <button className="flex items-center justify-center gap-3 text-slate-700 border border-slate-700 px-3 md:px-4 py-2 rounded">
+              <Search />
+              Encontre um médico
             </button>
-            <button className="bg-yellow-500 text-white px-3 md:px-4 py-2 rounded">
-              Schedule Appointment
+            <button className="flex items-center justify-center gap-3 text-rose-400 border border-rose-400 px-3 md:px-4 py-2 rounded">
+              <Heart />
+              Meus Favoritos
             </button>
-            <button className="bg-blue-500 text-white px-3 md:px-4 py-2 rounded">
-              View All Appointments
+            <button className="flex items-center justify-center gap-3 text-sky-500 border border-sky-500 px-3 md:px-4 py-2 rounded">
+              <ClipboardPen />
+              Consultas
             </button>
           </div>
         </div>

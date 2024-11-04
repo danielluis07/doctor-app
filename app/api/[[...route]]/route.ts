@@ -7,6 +7,7 @@ import availability from "./availability";
 import doctors from "./doctors";
 import reviews from "./reviews";
 import patients from "./patients";
+import favorites from "./favorites";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 
@@ -28,7 +29,8 @@ const routes = app
   .route("/patients", patients)
   .route("/appointments", appointments)
   .route("/reviews", reviews)
-  .route("/availability", availability);
+  .route("/availability", availability)
+  .route("/favorites", favorites);
 
 export const GET = handle(app);
 export const POST = handle(app);

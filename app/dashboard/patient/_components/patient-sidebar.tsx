@@ -9,7 +9,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { House, UserPen, CalendarSearch, Stethoscope } from "lucide-react";
+import {
+  House,
+  UserPen,
+  CalendarSearch,
+  Stethoscope,
+  Heart,
+} from "lucide-react";
 import { LogoutBtn } from "@/components/auth/logout-btn";
 import Image from "next/image";
 import logo from "@/public/app-logo.png";
@@ -33,7 +39,12 @@ const items = [
   {
     url: "/dashboard/patient/doctors",
     icon: Stethoscope,
-    label: "Procurar Médicos",
+    label: "Todos os Médicos",
+  },
+  {
+    url: "/dashboard/patient/favorites",
+    icon: Heart,
+    label: "Médicos Favoritos",
   },
 ];
 
