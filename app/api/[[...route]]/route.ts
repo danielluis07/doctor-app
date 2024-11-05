@@ -6,6 +6,7 @@ import appointments from "./appointments";
 import availability from "./availability";
 import doctors from "./doctors";
 import reviews from "./reviews";
+import favorites from "./favorites";
 import patients from "./patients";
 //import Google from "next-auth/providers/google";
 //import Credentials from "next-auth/providers/credentials";
@@ -28,6 +29,7 @@ const routes = app
   .route("/patients", patients)
   .route("/appointments", appointments)
   .route("/reviews", reviews)
+  .route("/favorites", favorites)
   .route("/availability", availability);
 
 export const GET = handle(app);
