@@ -2,6 +2,7 @@ import { getUserPatient } from "@/queries/patients/get-patient";
 import { auth } from "@/auth";
 import { NextAppointment } from "../_components/next-appointment";
 import { ClipboardPen, Heart, Search } from "lucide-react";
+import { SearchDialog } from "@/components/search-dialog";
 
 const PatientDashboardPage = async () => {
   const session = await auth();
@@ -19,10 +20,7 @@ const PatientDashboardPage = async () => {
         <div className="bg-white p-4 md:p-6 rounded-lg shadow">
           <h2 className="text-lg md:text-xl font-bold mb-4">Ações rápidas</h2>
           <div className="flex flex-col space-y-3 md:space-y-4">
-            <button className="flex items-center justify-center gap-3 text-slate-700 border border-slate-700 px-3 md:px-4 py-2 rounded">
-              <Search />
-              Encontre um médico
-            </button>
+            <SearchDialog />
             <button className="flex items-center justify-center gap-3 text-rose-400 border border-rose-400 px-3 md:px-4 py-2 rounded">
               <Heart />
               Meus Favoritos

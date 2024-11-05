@@ -105,7 +105,8 @@ export const DoctorsClient = ({ data }: { data: Doctors[] }) => {
     router.replace(pathname + "?" + params.toString(), { scroll: false });
   };
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     const params = new URLSearchParams();
     if (searchQuery) {
       params.set("q", searchQuery);
@@ -118,12 +119,14 @@ export const DoctorsClient = ({ data }: { data: Doctors[] }) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">All Doctors</h1>
-      <div className="flex items-center gap-x-2 w-full">
+      <form
+        onSubmit={handleSearchSubmit}
+        className="flex items-center gap-x-2 w-full">
         <Input onChange={handleSearchChange} value={searchQuery} />
-        <Button onClick={handleSearchSubmit}>
+        <Button>
           <Search className="text-lg" />
         </Button>
-      </div>
+      </form>
       {/* filters */}
       <div className="flex items-center justify-end w-full gap-x-2 mt-3">
         <select
