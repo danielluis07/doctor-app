@@ -61,7 +61,7 @@ export const NextAppointment = ({ id }: { id: string | undefined }) => {
       </div>
       <Link href={`/dashboard/patient/appointments/${data?.appointment.id}`}>
         <button className="mt-4 bg-blue-500 text-white px-3 md:px-4 py-2 rounded">
-          View Details
+          Ver Detalhes
         </button>
       </Link>
     </div>

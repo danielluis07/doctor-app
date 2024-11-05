@@ -1,5 +1,7 @@
+import { MainSkeleton } from "@/components/skeletons/main-skeleton";
+
 const Loading = () => {
-  return <div>Loading...</div>;
+  return <MainSkeleton />;
 };
 
 export default Loading;
