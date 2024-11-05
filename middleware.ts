@@ -12,10 +12,8 @@ export default auth(async (req) => {
   const token = await getToken({
     req,
     secret,
-    salt: "authjs.session-token",
   });
-  const role = (token?.role as "ADMIN" | "DOCTOR" | "PATIENT") || "PATIENT";
-
+  const role = token?.role as "ADMIN" | "DOCTOR" | "PATIENT";
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
