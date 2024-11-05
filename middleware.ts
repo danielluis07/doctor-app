@@ -1,12 +1,7 @@
 import NextAuth from "next-auth";
 import { getToken } from "next-auth/jwt";
 import authConfig from "@/auth.config";
-import {
-  DEFAULT_LOGIN_REDIRECT,
-  apiAuthPrefix,
-  authRoutes,
-  publicRoutes,
-} from "@/routes";
+import { apiAuthPrefix, authRoutes, publicRoutes } from "@/routes";
 
 const { auth } = NextAuth(authConfig);
 
@@ -19,7 +14,7 @@ export default auth(async (req) => {
     secret,
     salt: "authjs.session-token",
   });
-  const role = token?.role as "ADMIN" | "DOCTOR" | "PATIENT";
+  const role = (token?.role as "ADMIN" | "DOCTOR" | "PATIENT") || "PATIENT";
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
