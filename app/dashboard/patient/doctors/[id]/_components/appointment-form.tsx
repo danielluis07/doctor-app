@@ -98,7 +98,7 @@ export const AppointmentForm = ({
 
   const handleDateSelect = (value: string) => {
     const selectedAvailability = availabilityData?.availability.find(
-      (item: Availability) => item.availableDate === value
+      (item) => item.availableDate === value
     );
 
     if (selectedAvailability) {
@@ -172,23 +172,17 @@ export const AppointmentForm = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {availabilityData?.availability.map(
-                          (data: Availability) => (
-                            <SelectItem
-                              key={data.id}
-                              value={data.availableDate ?? ""}>
-                              {data.availableDate
-                                ? format(
-                                    data.availableDate,
-                                    "EEEE, dd/MM/yyyy",
-                                    {
-                                      locale: ptBR,
-                                    }
-                                  )
-                                : ""}
-                            </SelectItem>
-                          )
-                        )}
+                        {availabilityData?.availability.map((data) => (
+                          <SelectItem
+                            key={data.id}
+                            value={data.availableDate ?? ""}>
+                            {data.availableDate
+                              ? format(data.availableDate, "EEEE, dd/MM/yyyy", {
+                                  locale: ptBR,
+                                })
+                              : ""}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
