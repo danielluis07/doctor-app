@@ -1,9 +1,7 @@
+import { MainSkeleton } from "@/components/skeletons/main-skeleton";
+
 const Loading = () => {
-  return (
-    <div className="bg-red-500">
-      <p>loading...</p>
-    </div>
-  );
+  return <MainSkeleton />;
 };
 
 export default Loading;

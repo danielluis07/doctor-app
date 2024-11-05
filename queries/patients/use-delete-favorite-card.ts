@@ -32,13 +32,16 @@ export const useDeleteFavoriteCard = (doctorId: string, patientId: string) => {
         boolean | undefined
       >(["favorites-status", { doctorId, patientId }]);
 
+      // Optimistically update UI immediately
       queryClient.setQueryData(
         ["favorites-status", { doctorId, patientId }],
-        (old: any) => {
-          if (!old) return false;
-          return false;
-        }
+        false
       );
+
+      // Directly update "favorites" list query
+      queryClient.setQueryData(["favorites", { patientId }], (old: any) => {
+        return old?.filter((doc: any) => doc.doctorId !== doctorId) || [];
+      });
 
       return { previousFavoriteStatus };
     },
@@ -46,6 +49,7 @@ export const useDeleteFavoriteCard = (doctorId: string, patientId: string) => {
       toast.success("Removido!");
     },
     onError: (err, variables, context) => {
+      // Rollback on error
       queryClient.setQueryData(
         ["favorites-status", { doctorId, patientId }],
         context?.previousFavoriteStatus
@@ -57,7 +61,7 @@ export const useDeleteFavoriteCard = (doctorId: string, patientId: string) => {
         queryKey: ["favorites-status", { doctorId, patientId }],
       });
       queryClient.invalidateQueries({
-        queryKey: ["favorites", { doctorId, patientId }],
+        queryKey: ["favorites", { patientId }],
       });
     },
   });

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Doctor } from "@/queries/doctors/get-doctor";
 import { Rating } from "react-simple-star-rating";
+import { useEffect } from "react";
 
 export const DoctorProfile = ({ data }: { data: Doctor }) => {
   const roundedRating = parseFloat(Number(data.averageRating).toFixed(1));
@@ -21,6 +22,10 @@ export const DoctorProfile = ({ data }: { data: Doctor }) => {
   const roundToHalf = (num: number) => {
     return Math.round(num * 2) / 2;
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="w-full bg-white shadow-xl rounded-2xl overflow-hidden">

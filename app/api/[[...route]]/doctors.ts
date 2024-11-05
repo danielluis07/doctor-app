@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { db } from "@/db/drizzle";
-import { users, doctor, review } from "@/db/schema";
-import { avg, count, eq, or, ilike } from "drizzle-orm";
+import { users, doctor, review, appointment, patient } from "@/db/schema";
+import { avg, count, eq, or, ilike, and, gte, asc } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";
-import { parse } from "path";
 
 const app = new Hono()
   .get(
@@ -160,6 +159,56 @@ const app = new Hono()
       };
 
       return c.json({ data: formattedData }, 200);
+    }
+  )
+  .get(
+    "/next-appointment/:id",
+    zValidator("param", z.object({ id: z.string().optional() })),
+    async (c) => {
+      const { id } = c.req.valid("param");
+
+      if (!id) {
+        return c.json({ error: "Missing id" }, 400);
+      }
+
+      const now = new Date();
+      const today = now.toISOString().split("T")[0];
+      const currentTime = now.toTimeString().split(" ")[0];
+
+      const [data] = await db
+        .select({
+          appointment: appointment,
+          patient: patient,
+          user: users,
+        })
+        .from(appointment)
+        .where(
+          and(
+            eq(appointment.doctorId, id),
+            or(
+              // Condition to get today’s appointments with a start time later than now
+              and(
+                eq(appointment.availableDate, today),
+                gte(appointment.startTime, currentTime)
+              ),
+              // Or any future date appointments
+              gte(appointment.availableDate, today)
+            )
+          )
+        )
+        .leftJoin(patient, eq(appointment.patientId, patient.id))
+        .leftJoin(users, eq(patient.userId, users.id))
+        .orderBy(
+          asc(appointment.availableDate), // Order by soonest date
+          asc(appointment.startTime) // Then by soonest time on that date
+        )
+        .limit(1);
+
+      if (!data) {
+        return c.json({ message: "No appointments found" }, 404);
+      }
+
+      return c.json({ data }, 200);
     }
   );
 

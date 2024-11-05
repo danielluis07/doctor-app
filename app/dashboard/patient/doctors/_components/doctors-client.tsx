@@ -56,10 +56,8 @@ export const DoctorsClient = ({ data }: { data: Doctors[] }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Get sort option from URL or default to ''
   const sortOption = searchParams.get("sort") || "";
 
-  // Filter data based on search, specialty, and sort option
   let filteredData = data.filter((doctor) => {
     const matchesSpecialty =
       !searchParams.get("specialty") ||

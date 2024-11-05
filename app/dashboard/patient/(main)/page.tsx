@@ -27,7 +27,7 @@ const PatientDashboardPage = async () => {
             </button>
             <button className="flex items-center justify-center gap-3 text-sky-500 border border-sky-500 px-3 md:px-4 py-2 rounded">
               <ClipboardPen />
-              Consultas
+              Minhas Anotações
             </button>
           </div>
         </div>
