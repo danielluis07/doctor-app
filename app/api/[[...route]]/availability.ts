@@ -1,19 +1,8 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { db } from "@/db/drizzle";
-import {
-  users,
-  patient,
-  doctor,
-  appointment,
-  insertDoctorSchema,
-  doctorAvailability,
-  insertAppointmentSchema,
-  insertDoctorAvailabilitySchema,
-} from "@/db/schema";
-import bcrypt from "bcryptjs";
+import { doctorAvailability } from "@/db/schema";
 import { zValidator } from "@hono/zod-validator";
-import { insertUserSchema, notification } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
 const app = new Hono()

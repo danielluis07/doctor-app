@@ -83,7 +83,7 @@ export const Appointment = ({
     );
   };
 
-  const handleDelete = (id: string | undefined) => {
+  const handleDelete = () => {
     deleteAppointment.mutate();
     router.push("/dashboard/doctor/appointments");
   };
@@ -249,7 +249,7 @@ export const Appointment = ({
               Cancelar Consulta
             </Button>
           )}
-          <Button variant="destructive" onClick={() => handleDelete(id)}>
+          <Button variant="destructive" onClick={() => handleDelete()}>
             Deletar Consulta
           </Button>
         </div>

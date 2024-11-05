@@ -4,7 +4,6 @@ import { useTransition } from "react";
 import { Ellipsis, Pencil, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,12 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export const AppointmentsCellAction = ({ id }: { id: string }) => {
-  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  console.log(open);
   const router = useRouter();
-  const params = useParams();
-
-  console.log(id);
 
   return (
     <>

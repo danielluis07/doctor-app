@@ -9,7 +9,7 @@ export default function Home() {
         {/* Text Section */}
         <div className="md:w-1/2 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Book Your Doctor's Appointment Easily
+            Book Your Doctor&apos;s Appointment Easily
           </h1>
           <p className="text-lg md:text-xl mb-6">
             Find the right doctor for you and book an appointment in just a few

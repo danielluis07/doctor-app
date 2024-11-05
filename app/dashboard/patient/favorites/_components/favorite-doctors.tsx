@@ -1,10 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import placeholder from "@/public/placeholder-logo.jpg";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useGetFavorites } from "@/queries/patients/use-get-favorites";
-import Link from "next/link";
 import { DoctorCardSkeleton } from "@/components/skeletons/favorite-cards-skeleton";
 import { FavoriteCard } from "./favorite-card";
 import { Frown } from "lucide-react";

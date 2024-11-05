@@ -47,7 +47,10 @@ export const FavoriteCard = ({ doctor, user, patientId }: DoctorData) => {
         </Link>
         <p className="text-sm text-gray-600">{doctor?.specialty}</p>
         <p className="text-sm text-gray-500">{doctor?.doctor_office}</p>
-        <RemoveBtn doctorId={doctor?.id} patientId={patientId} />
+        <RemoveBtn
+          doctorId={doctor?.id as string}
+          patientId={patientId as string}
+        />
       </div>
     </div>
   );

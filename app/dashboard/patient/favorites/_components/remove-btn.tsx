@@ -7,14 +7,13 @@ export const RemoveBtn = ({
   doctorId,
   patientId,
 }: {
-  doctorId: string | undefined;
-  patientId: string | undefined;
+  doctorId: string;
+  patientId: string;
 }) => {
+  const deleteFavoriteMutation = useDeleteFavorite(doctorId, patientId);
   if (!doctorId || !patientId) {
     return null;
   }
-
-  const deleteFavoriteMutation = useDeleteFavorite(doctorId, patientId);
   const removeFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     deleteFavoriteMutation.mutate({ doctorId, patientId });

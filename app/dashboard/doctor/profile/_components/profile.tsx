@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -105,7 +105,7 @@ export const Profile = ({
     updateDoctorMutation.mutate(values);
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
 

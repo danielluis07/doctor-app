@@ -18,8 +18,8 @@ const DoctorsPage = async (props: {
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "10";
 
-  const start = (Number(page) - 1) * Number(per_page);
-  const end = start + Number(per_page);
+  //const start = (Number(page) - 1) * Number(per_page);
+  //const end = start + Number(per_page);
 
   const data = await getDoctors(page, per_page);
 

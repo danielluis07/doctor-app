@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import placeholder from "@/public/placeholder-logo.jpg";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -64,7 +64,7 @@ export const Settings = () => {
     updateUserMutation.mutate(values);
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
 

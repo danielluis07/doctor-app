@@ -1,7 +1,7 @@
 import { getUserPatient } from "@/queries/patients/get-patient";
 import { auth } from "@/auth";
 import { NextAppointment } from "../_components/next-appointment";
-import { ClipboardPen, Heart, Search } from "lucide-react";
+import { ClipboardPen, Heart } from "lucide-react";
 import { SearchDialog } from "@/components/search-dialog";
 
 const PatientDashboardPage = async () => {

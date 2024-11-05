@@ -12,12 +12,9 @@ type UploadImageProps = {
   image: string | null | undefined;
 };
 
-export const UploadImage = ({
-  onChange,
-  onRemove,
-  image,
-}: UploadImageProps) => {
+export const UploadImage = ({ onChange, image }: UploadImageProps) => {
   const [imageUrl, setImageUrl] = useState<string | null | undefined>(image);
+  console.log(imageUrl);
 
   return (
     <div>

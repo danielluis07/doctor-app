@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -57,7 +57,7 @@ export const AvailabilityForm = ({ id }: { id: string | undefined }) => {
     form.reset();
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
   return (

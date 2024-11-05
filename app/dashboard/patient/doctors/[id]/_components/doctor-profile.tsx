@@ -4,7 +4,6 @@ import Image from "next/image";
 import placeholder from "@/public/placeholder-logo.jpg";
 import {
   Mail,
-  Briefcase,
   User,
   MapPin,
   Hospital,

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { login } from "@/actions/login";
 import { toast } from "sonner";
 
@@ -34,8 +34,8 @@ type FormData = z.infer<typeof logInSchema>;
 
 export const SignInForm = () => {
   const [showPassword, setShowPassword] = useState<string | boolean>(false);
-  const searchParams = useSearchParams();
-  const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);
+  //const searchParams = useSearchParams();
+  //const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -64,7 +64,7 @@ export const SignInForm = () => {
     });
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
 

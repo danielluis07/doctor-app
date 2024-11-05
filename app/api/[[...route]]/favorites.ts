@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Hono } from "hono";
 import { db } from "@/db/drizzle";
-import { patient, favorites, users, doctor } from "@/db/schema";
+import { favorites, users, doctor } from "@/db/schema";
 import { zValidator } from "@hono/zod-validator";
 import { and, eq } from "drizzle-orm";
 import { insertFavoriteSchema } from "@/db/schema";

@@ -6,13 +6,12 @@ import {
   patient,
   doctor,
   insertDoctorSchema,
-  doctorAvailability,
   insertPatientSchema,
   review,
 } from "@/db/schema";
 import bcrypt from "bcryptjs";
 import { zValidator } from "@hono/zod-validator";
-import { insertUserSchema, notification } from "@/db/schema";
+import { insertUserSchema } from "@/db/schema";
 import { avg, count, eq } from "drizzle-orm";
 
 const app = new Hono()

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Rating } from "react-simple-star-rating";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -16,7 +16,6 @@ import {
 import { insertReviewSchema as baseInsertReviewSchema } from "@/db/schema";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateDoctorReview } from "@/queries/reviews/use-create-reviews";
-import { useState } from "react";
 
 const insertReviewSchema = baseInsertReviewSchema.extend({
   doctorId: z.string(),
@@ -58,7 +57,7 @@ export const ReviewForm = ({
     );
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
 
