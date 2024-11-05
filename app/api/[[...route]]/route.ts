@@ -10,9 +10,17 @@ import favorites from "./favorites";
 
 export const runtime = "nodejs";
 
+/* app.use(
+  "*",
+  initAuthConfig((c) => ({
+    secret: c.env.AUTH_SECRET,
+    providers: [Credentials({})],
+  }))
+); */
+
 const app = new Hono().basePath("/api");
 
-const routes = app
+app
   .route("/users", users)
   .route("/doctors", doctors)
   .route("/patients", patients)
