@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetDoctorAvailability } from "@/queries/doctor-availability/use-get-availability";
@@ -81,7 +81,7 @@ export const AppointmentForm = ({
     onClose();
   };
 
-  const onInvalid = (errors: any) => {
+  const onInvalid = (errors: FieldErrors) => {
     console.log(errors);
   };
 
@@ -89,9 +89,16 @@ export const AppointmentForm = ({
     return <Skeleton className="w-20 h-10" />;
   }
 
+  type Availability = {
+    id: string;
+    availableDate: string;
+    startTime: string;
+    endTime: string;
+  };
+
   const handleDateSelect = (value: string) => {
     const selectedAvailability = availabilityData?.availability.find(
-      (item) => item.availableDate === value
+      (item: Availability) => item.availableDate === value
     );
 
     if (selectedAvailability) {
@@ -165,17 +172,23 @@ export const AppointmentForm = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {availabilityData?.availability.map((data) => (
-                          <SelectItem
-                            key={data.id}
-                            value={data.availableDate ?? ""}>
-                            {data.availableDate
-                              ? format(data.availableDate, "EEEE, dd/MM/yyyy", {
-                                  locale: ptBR,
-                                })
-                              : ""}
-                          </SelectItem>
-                        ))}
+                        {availabilityData?.availability.map(
+                          (data: Availability) => (
+                            <SelectItem
+                              key={data.id}
+                              value={data.availableDate ?? ""}>
+                              {data.availableDate
+                                ? format(
+                                    data.availableDate,
+                                    "EEEE, dd/MM/yyyy",
+                                    {
+                                      locale: ptBR,
+                                    }
+                                  )
+                                : ""}
+                            </SelectItem>
+                          )
+                        )}
                       </SelectContent>
                     </Select>
                     <FormMessage />

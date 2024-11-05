@@ -14,10 +14,10 @@ import {
 import { Ellipsis, Pencil, Trash2 } from "lucide-react";
 
 export const AppointmentsCellAction = ({ id }: { id: string }) => {
-  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const params = useParams();
+
+  console.log(open);
 
   return (
     <>

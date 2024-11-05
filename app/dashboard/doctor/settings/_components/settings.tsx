@@ -131,7 +131,7 @@ export const Settings = () => {
           <FormField
             control={form.control}
             name="image"
-            render={({ field }) => (
+            render={({}) => (
               <FormItem>
                 <FormControl>
                   <UploadImage
