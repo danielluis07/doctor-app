@@ -12,6 +12,9 @@ export default auth(async (req) => {
   const token = await getToken({
     req,
     secret,
+    secureCookie: process.env.NODE_ENV === "production",
+    cookieName: "next-auth.session-token",
+    raw: false,
   });
   const role = token?.role as "ADMIN" | "DOCTOR" | "PATIENT";
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
