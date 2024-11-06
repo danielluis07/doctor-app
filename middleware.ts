@@ -18,14 +18,6 @@ export default auth(async (req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  console.log({
-    environment: process.env.NODE_ENV,
-    isLoggedIn,
-    hasToken: !!token,
-    tokenDetails: token,
-    cookies: req.cookies,
-    authSecret: !!process.env.AUTH_SECRET, // Log if secret exists (don't log the actual secret)
-  });
 
   if (isApiAuthRoute) {
     return undefined;

@@ -16,13 +16,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { insertUserSchema } from "@/db/schema";
-import { useSession } from "next-auth/react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetUser } from "@/queries/users/use-get-user";
 import { useEffect } from "react";
 import { useUpdateUser } from "@/queries/users/use-update-user";
 import { UploadImage } from "@/components/uploadImage";
 import { X } from "lucide-react";
+import { UserDoctor } from "@/queries/doctors/get-doctor";
+import { User } from "@/queries/users/get-user";
 
 const userSchema = insertUserSchema.pick({
   name: true,
@@ -39,24 +39,26 @@ const userSchema = insertUserSchema.pick({
 
 type FormData = z.infer<typeof userSchema>;
 
-export const Settings = () => {
-  const { data } = useSession();
-  const userQuery = useGetUser(data?.user.id);
-  const user = userQuery.data;
-  const updateUserMutation = useUpdateUser(data?.user.id);
+type Props = {
+  user: User;
+};
+
+export const Settings = ({ user }: Props) => {
+  const updateUserMutation = useUpdateUser(user.id);
 
   const form = useForm<FormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      name: user?.name ?? "",
-      address: user?.address ?? "",
-      address2: user?.address2 ?? "",
-      city: user?.city ?? "",
-      password: user?.password ?? "",
-      state: user?.state ?? "",
-      postalCode: user?.postalCode ?? "",
-      phone: user?.phone ?? "",
-      image: user?.image,
+      name: user.name ?? "",
+      email: user.email ?? "",
+      address: user.address ?? "",
+      address2: user.address2 ?? "",
+      city: user.city ?? "",
+      password: user.password ?? "",
+      state: user.state ?? "",
+      postalCode: user.postalCode ?? "",
+      phone: user.phone ?? "",
+      image: user.image ?? "",
     },
   });
 
@@ -68,46 +70,6 @@ export const Settings = () => {
     console.log(errors);
   };
 
-  useEffect(() => {
-    if (userQuery.data) {
-      form.reset(userQuery.data);
-    }
-  }, [userQuery.data]);
-
-  if (userQuery.isLoading) {
-    return (
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-          <div className="relative w-24 h-24 sm:w-36 sm:h-36 rounded-lg overflow-hidden">
-            <Skeleton className="w-full h-full rounded-lg" />
-          </div>
-          <Skeleton className="w-full sm:w-auto h-10" />
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <Skeleton className="h-5 w-1/3 mb-2" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <div>
-            <Skeleton className="h-5 w-1/3 mb-2" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <div>
-            <Skeleton className="h-5 w-1/3 mb-2" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <div>
-            <Skeleton className="h-5 w-1/3 mb-2" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-        </div>
-
-        <Skeleton className="w-full sm:w-auto h-10" />
-      </div>
-    );
-  }
-
   return (
     <Form {...form}>
       <form
@@ -115,9 +77,9 @@ export const Settings = () => {
         className="space-y-6">
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="relative w-24 h-24 sm:w-36 sm:h-36 rounded-lg overflow-hidden">
-            {form.watch("image") !== null && (
+            {form.watch("image") !== "" && (
               <div
-                onClick={() => form.setValue("image", null)}
+                onClick={() => form.setValue("image", "")}
                 className="absolute top-0 right-0 cursor-pointer z-30 bg-red-500 rounded-full">
                 <X className="text-white text-2xl" />
               </div>
@@ -138,7 +100,9 @@ export const Settings = () => {
                     onChange={(url) => {
                       form.setValue("image", url);
                     }}
-                    onRemove={() => form.setValue("image", null)}
+                    onRemove={() => {
+                      form.setValue("image", "");
+                    }}
                     image={form.watch("image")}
                   />
                 </FormControl>
