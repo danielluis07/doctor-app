@@ -11,6 +11,7 @@ export const SettingsSkeleton = () => {
         <Skeleton className="w-2/6 h-10" />
         <Skeleton className="w-2/6 h-10" />
         <Skeleton className="w-2/6 h-10" />
+        <Skeleton className="w-2/6 h-10" />
         <Skeleton className="w-1/6 h-10" />
       </div>
     </div>
