@@ -16,12 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { insertUserSchema } from "@/db/schema";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect } from "react";
 import { useUpdateUser } from "@/queries/users/use-update-user";
 import { UploadImage } from "@/components/uploadImage";
 import { X } from "lucide-react";
-import { UserDoctor } from "@/queries/doctors/get-doctor";
 import { User } from "@/queries/users/get-user";
 
 const userSchema = insertUserSchema.pick({
@@ -54,7 +51,7 @@ export const Settings = ({ user }: Props) => {
       address: user.address ?? "",
       address2: user.address2 ?? "",
       city: user.city ?? "",
-      password: user.password ?? "",
+      password: "",
       state: user.state ?? "",
       postalCode: user.postalCode ?? "",
       phone: user.phone ?? "",
@@ -72,6 +69,7 @@ export const Settings = ({ user }: Props) => {
 
   return (
     <Form {...form}>
+      <h1 className="text-xl font-bold mb-8">Suas informações de usuário</h1>
       <form
         onSubmit={form.handleSubmit(onSubmit, onInvalid)}
         className="space-y-6">
@@ -116,12 +114,12 @@ export const Settings = ({ user }: Props) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Nome</FormLabel>
               <FormControl>
                 <Input
                   placeholder="John"
                   {...field}
-                  className="w-full"
+                  className="w-2/6"
                   disabled={updateUserMutation.isPending}
                   value={field.value ?? ""}
                 />
@@ -141,7 +139,7 @@ export const Settings = ({ user }: Props) => {
                 <Input
                   placeholder="example@domain.com"
                   {...field}
-                  className="w-full"
+                  className="w-2/6"
                   value={field.value ?? ""}
                   disabled={updateUserMutation.isPending}
                 />
@@ -156,13 +154,13 @@ export const Settings = ({ user }: Props) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Senha</FormLabel>
               <FormControl>
                 <Input
                   type="password"
                   placeholder="••••••••"
                   {...field}
-                  className="w-full"
+                  className="w-2/6"
                   value={field.value ?? ""}
                   disabled={updateUserMutation.isPending}
                 />
@@ -175,8 +173,8 @@ export const Settings = ({ user }: Props) => {
         <Button
           type="submit"
           className="w-full sm:w-auto"
-          disabled={updateUserMutation.isPending}>
-          Save Changes
+          disabled={updateUserMutation.isPending || !form.formState.isDirty}>
+          Salvar Mudanças
         </Button>
       </form>
     </Form>

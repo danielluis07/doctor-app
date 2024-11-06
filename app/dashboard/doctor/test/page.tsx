@@ -1,7 +1,7 @@
 import { SettingsSkeleton } from "@/components/skeletons/settings-skeleton";
 
-const Loading = () => {
+const TestPage = () => {
   return <SettingsSkeleton />;
 };
 
-export default Loading;
+export default TestPage;
